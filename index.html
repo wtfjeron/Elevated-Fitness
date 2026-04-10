@@ -28,6 +28,57 @@
         align-items: center;
     }
 
+    /* NOT AUTHED header state */
+    .not-authed-area {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 6px;
+    }
+
+    .not-authed-label {
+        font-size: 12px;
+        color: #555;
+        font-style: italic;
+    }
+
+    .not-authed-btns {
+        display: flex;
+        gap: 6px;
+    }
+
+    .btn-login {
+        padding: 6px 14px;
+        background: white;
+        border: 1.5px solid #555;
+        border-radius: 4px;
+        font-size: 13px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #111;
+        display: inline-block;
+        line-height: 1.4;
+    }
+
+    .btn-login:hover { background: #f0f0f0; }
+
+    .btn-signup {
+        padding: 6px 14px;
+        background: #111;
+        color: white;
+        border: 1.5px solid #111;
+        border-radius: 4px;
+        font-size: 13px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        line-height: 1.4;
+    }
+
+    .btn-signup:hover { background: #333; }
+
     .top-controls {
         padding: 15px;
         display: flex;
@@ -264,21 +315,7 @@
     .user-details small {
         color: #666;
     }
-    .modal {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        border: 2px solid black;
-        padding: 20px;
-        width: 300px;
-        z-index: 1000;
-    }
-
-    .modal h3 { margin-top: 0; }
-
+    /* MODAL OVERLAY */
     .overlay {
         display: none;
         position: fixed;
@@ -287,7 +324,166 @@
         background: rgba(0,0,0,0.5);
         top: 0;
         left: 0;
+        z-index: 999;
     }
+
+    /* PRODUCT DETAILS MODAL */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border: 2px solid black;
+        width: 340px;
+        z-index: 1000;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    /* Header bar with back arrow */
+    .modal-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        border-bottom: 2px solid black;
+        background: white;
+    }
+
+    .modal-back-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        color: black;
+    }
+
+    .modal-header h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 0.03em;
+    }
+
+    /* Modal body */
+    .modal-body {
+        padding: 20px 20px 16px;
+    }
+
+    .modal-field {
+        font-size: 13px;
+        color: #222;
+        margin-bottom: 10px;
+    }
+
+    .modal-field span {
+        font-weight: normal;
+        color: #111;
+    }
+
+    .modal-img-wrap {
+        text-align: center;
+        margin: 16px 0;
+    }
+
+    .modal-img-wrap img {
+        width: 140px;
+        height: 140px;
+        object-fit: contain;
+        background: #f5f5f5;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        padding: 8px;
+    }
+
+    /* Close button */
+    .modal-close-btn {
+        display: block;
+        width: 60%;
+        margin: 0 auto 20px;
+        padding: 10px;
+        background: #e8e8e8;
+        color: #111;
+        border: 1.5px solid #bbb;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .modal-close-btn:hover {
+        background: #d5d5d5;
+    }
+
+    /* ── AUTH PROMPT MODAL ── */
+    .auth-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border: 2px solid black;
+        width: 320px;
+        z-index: 1001;
+        border-radius: 6px;
+        padding: 24px 20px 20px;
+        box-sizing: border-box;
+    }
+
+    .auth-modal p {
+        margin: 0 0 20px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #111;
+    }
+
+    .auth-modal-btns {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-start;
+    }
+
+    .auth-btn-cancel {
+        padding: 8px 16px;
+        background: white;
+        border: 1.5px solid #aaa;
+        border-radius: 4px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .auth-btn-cancel:hover { background: #f0f0f0; }
+
+    .auth-btn-login {
+        padding: 8px 16px;
+        background: white;
+        border: 1.5px solid #aaa;
+        border-radius: 4px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .auth-btn-login:hover { background: #f0f0f0; }
+
+    .auth-btn-signup {
+        padding: 8px 16px;
+        background: #a8d5a2;
+        border: 1.5px solid #7db87a;
+        border-radius: 4px;
+        font-size: 13px;
+        cursor: pointer;
+        color: #1a4a18;
+        font-weight: bold;
+    }
+
+    .auth-btn-signup:hover { background: #90c98a; }
 </style>
 </head>
 <body>
@@ -297,7 +493,18 @@
     <h1>Elevated Fitness</h1>
     <div class="header-right">
         ❤️ Wishlist
-        <div class="user-info">
+
+        <!-- NOT AUTHED (shown by default) -->
+        <div class="not-authed-area" id="notAuthedArea">
+            <span class="not-authed-label">Not logged in</span>
+            <div class="not-authed-btns">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="signup.html" class="btn-signup">Sign Up &rsaquo;</a>
+            </div>
+        </div>
+
+        <!-- AUTHED (hidden by default, shown after login) -->
+        <div class="user-info" id="authedArea" style="display:none;">
             <svg class="user-avatar" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="21" cy="21" r="21" fill="#555"/>
                 <circle cx="21" cy="16" r="7" fill="#ccc"/>
@@ -347,32 +554,32 @@
         <div class="product-card">
             <img src="https://via.placeholder.com/120" alt="">
             <div class="btn-group">
-                <button onclick="openModal(1001, 'Adjustable Dumbbell Set', 'Weight', '$59.99')">Product Details</button>
-                <button>Add to Cart</button>
+                <button onclick="openModal(1001, 'Adjustable Dumbbell Set', 'Weight', '$59.99', 'https://via.placeholder.com/140')">Product Details</button>
+                <button onclick="addToCart()">Add to Cart</button>
             </div>
         </div>
 
         <div class="product-card">
             <img src="https://via.placeholder.com/120" alt="">
             <div class="btn-group">
-                <button onclick="openModal(1002, 'Whey Protein Gold', 'Supplement', '$39.99')">Product Details</button>
-                <button>Add to Cart</button>
+                <button onclick="openModal(1002, 'Whey Protein Gold', 'Supplement', '$39.99', 'https://via.placeholder.com/140')">Product Details</button>
+                <button onclick="addToCart()">Add to Cart</button>
             </div>
         </div>
 
         <div class="product-card">
             <img src="https://via.placeholder.com/120" alt="">
             <div class="btn-group">
-                <button onclick="openModal(1003, 'Resistance Bands Kit', 'Accessory', '$19.99')">Product Details</button>
-                <button>Add to Cart</button>
+                <button onclick="openModal(1003, 'Resistance Bands Kit', 'Accessory', '$19.99', 'https://via.placeholder.com/140')">Product Details</button>
+                <button onclick="addToCart()">Add to Cart</button>
             </div>
         </div>
 
         <div class="product-card">
             <img src="https://via.placeholder.com/120" alt="">
             <div class="btn-group">
-                <button onclick="openModal(1004, 'Resistance Bands Kit', 'Accessory', '$19.99')">Product Details</button>
-                <button>Add to Cart</button>
+                <button onclick="openModal(1004, 'Resistance Bands Kit', 'Accessory', '$19.99', 'https://via.placeholder.com/140')">Product Details</button>
+                <button onclick="addToCart()">Add to Cart</button>
             </div>
         </div>
 
@@ -407,23 +614,66 @@
 
 </div>
 
-<!-- MODAL -->
-<div class="overlay" id="overlay"></div>
+<!-- MODAL OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeModal()"></div>
+
+<!-- PRODUCT DETAILS MODAL -->
 <div class="modal" id="productModal">
-    <h3>Product Details</h3>
-    <p><strong>ID:</strong> <span id="prodId"></span></p>
-    <p><strong>Name:</strong> <span id="prodName"></span></p>
-    <p><strong>Type:</strong> <span id="prodType"></span></p>
-    <p><strong>Price:</strong> <span id="prodPrice"></span></p>
-    <button onclick="closeModal()">Close</button>
+
+    <div class="modal-header">
+        <button class="modal-back-btn" onclick="closeModal()">&#8592;</button>
+        <h3>Product Details</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="modal-field"><strong>Product ID:</strong> <span id="prodId"></span></div>
+        <div class="modal-field"><strong>Product Name:</strong> <span id="prodName"></span></div>
+        <div class="modal-field"><strong>Product Type:</strong> <span id="prodType"></span></div>
+        <div class="modal-field"><strong>Product Price:</strong> <span id="prodPrice"></span></div>
+
+        <div class="modal-img-wrap">
+            <img id="prodImg" src="https://via.placeholder.com/140" alt="Product Image">
+        </div>
+    </div>
+
+    <button class="modal-close-btn" onclick="closeModal()">Close</button>
+
+</div>
+
+<!-- AUTH PROMPT MODAL -->
+<div class="auth-modal" id="authModal">
+    <p>You are not logged in,<br>please sign up to add items to cart.</p>
+    <div class="auth-modal-btns">
+        <button class="auth-btn-cancel" onclick="closeAuthModal()">Cancel</button>
+        <button class="auth-btn-login" onclick="closeAuthModal()">Login</button>
+        <button class="auth-btn-signup" onclick="closeAuthModal()">Sign Up</button>
+    </div>
 </div>
 
 <script>
-function openModal(id, name, type, price) {
+// Toggle this to true to simulate a logged-in user
+var isLoggedIn = false;
+
+function addToCart() {
+    if (!isLoggedIn) {
+        document.getElementById("authModal").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+    } else {
+        alert("Item added to cart!");
+    }
+}
+
+function closeAuthModal() {
+    document.getElementById("authModal").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
+
+function openModal(id, name, type, price, imgSrc) {
     document.getElementById("prodId").innerText = id;
     document.getElementById("prodName").innerText = name;
     document.getElementById("prodType").innerText = type;
     document.getElementById("prodPrice").innerText = price;
+    document.getElementById("prodImg").src = imgSrc || "https://via.placeholder.com/140";
     document.getElementById("productModal").style.display = "block";
     document.getElementById("overlay").style.display = "block";
 }
