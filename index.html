@@ -459,6 +459,10 @@
         border-radius: 4px;
         font-size: 13px;
         cursor: pointer;
+        text-decoration: none;
+        color: #111;
+        display: inline-flex;
+        align-items: center;
     }
 
     .auth-btn-cancel:hover { background: #f0f0f0; }
@@ -470,6 +474,10 @@
         border-radius: 4px;
         font-size: 13px;
         cursor: pointer;
+        text-decoration: none;
+        color: #111;
+        display: inline-flex;
+        align-items: center;
     }
 
     .auth-btn-login:hover { background: #f0f0f0; }
@@ -483,6 +491,9 @@
         cursor: pointer;
         color: #1a4a18;
         font-weight: bold;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
     }
 
     .auth-btn-signup:hover { background: #90c98a; }
@@ -611,7 +622,7 @@
             </div>
         </div>
 
-        <button class="checkout-btn">Checkout →</button>
+        <button  class="checkout-btn" onclick="window.location.href='checkoutpage.html'">Checkout →</button>
     </div>
 
 </div>
@@ -647,8 +658,8 @@
     <p>You are not logged in,<br>please sign up to add items to cart.</p>
     <div class="auth-modal-btns">
         <button class="auth-btn-cancel" onclick="closeAuthModal()">Cancel</button>
-        <button class="auth-btn-login" onclick="closeAuthModal()">Login</button>
-        <button class="auth-btn-signup" onclick="closeAuthModal()">Sign Up</button>
+        <a href="login.html" class="auth-btn-login">Login</a>
+        <a href="signup.html" class="auth-btn-signup">Sign Up</a>
     </div>
 </div>
 
