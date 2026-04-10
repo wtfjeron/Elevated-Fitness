@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevated-Fitness</title>
+
+    <style>
+
+        nav {
+            background: blue;
+            padding: 15px 30px 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a { 
+            color: black;
+            margin:5px; 
+            padding:10px; 
+            cursor:pointer;
+            text-decoration: none; 
+            border: 2px solid;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-brand">
+            <img src="" alt="Logo" class="nav-logo">
+            <h1 href="#home">Elevated-Fitness</h1>
+        </div>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div id="products" class="grid"></div>
+    </div>
+
+    <script>
+        let state = [];
+
+        async function getProducts(){
+            const response = await fetch('equipment_ttd.json');
+            const data = await response.json();
+
+            return data.slice(0, 100);
+        }
+
+        async function showAllProducts(){
+            state = await getProducts();
+            LoadProducts(state);
+        }
+
+        function LoadProducts(items){
+        const container = document.querySelector('#products');
+        container.innerHTML = '';
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                card.innerHTML = `
+                <img src="${item.imageUrl}">
+                <h3>${item.name}</h3>
+                <p>${item.type}</p>
+                <p>$${item.price}.00 -${item.currency}</p>
+                <button onclick="addFav(${item.id})">❤ Favorite</button>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        showAllProducts();
+
+    </script>
+</body>
+</html>
