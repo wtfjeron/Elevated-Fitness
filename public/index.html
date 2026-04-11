@@ -105,6 +105,47 @@
         padding: 10px;
     }
 
+    /* SORT CSS */
+    .sort-dropdown {
+    position: relative;
+    }
+
+    .sort-menu {
+        display: none;
+        position: absolute;
+        top: 35px;
+        left: 0;
+        background: white;
+        border: 1px solid #ccc;
+        width: 170px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        z-index: 100;
+    }
+
+    .sort-menu div {
+        padding: 8px 10px;
+        cursor: pointer;
+        font-size: 13px;
+    }
+
+    .sort-menu div:hover {
+        background: #f0f0f0;
+    }
+
+    .menu-title {
+        font-size: 12px;
+        font-weight: bold;
+        padding: 6px 10px;
+        background: #f5f5f5;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sort-menu hr {
+        margin: 5px 0;
+        border: none;
+        border-top: 1px solid #eee;
+    }
+
     /* ── REVIEWS ── */
     .reviews {
         background: white;
@@ -675,7 +716,27 @@
 <div class="top-controls">
     <input type="text" id="searchInput" placeholder="Search products here...">
     <button onclick="searchProducts()">Search</button>
-    <button>Sort By ▼</button>
+    
+    <div class="sort-dropdown">
+    <button onclick="toggleSortMenu()">Sort By ▼</button>
+    
+    <div id="sortMenu" class="sort-menu">
+        <div class="menu-title">Filter by Type</div>
+        <div onclick="filterByType('machinery')">Machinery</div>
+        <div onclick="filterByType('nutrition')">Nutrition</div>
+        <div onclick="filterByType('personal')">Personal Items</div>
+
+        <hr>
+
+        <div onclick="sortProducts('priceLow')">Price: Low → High</div>
+        <div onclick="sortProducts('priceHigh')">Price: High → Low</div>
+
+        <hr>
+
+        <div onclick="displayProducts(products)">Reset</div>
+    </div>
+
+</div>
 </div>
 
 <!-- MAIN CONTENT -->
@@ -827,148 +888,190 @@
 </div>
 
 <script>
-// Toggle this to true to simulate a logged-in user
-var isLoggedIn = false;
+    // Toggle this to true to simulate a logged-in user
+    var isLoggedIn = false;
 
-let products = [];
+    let products = [];
 
-//LOAD PRODUCTS
-async function loadProducts() {
-    try {
-        const response = await fetch("equipment_ttd.json");
-        products = await response.json();
+    //LOAD PRODUCTS
+    async function loadProducts() {
+        try {
+            const response = await fetch("equipment_ttd.json");
+            products = await response.json();
 
-        displayProducts(products);
-    } catch (error) {
-        console.error("Error loading products:", error);
+            displayProducts(products);
+        } catch (error) {
+            console.error("Error loading products:", error);
+        }
     }
-}
 
-//DISPLAY PRODUCTS
-function displayProducts(productList) {
-    const container = document.querySelector(".products");
+    //DISPLAY PRODUCTS
+    function displayProducts(productList) {
+        const container = document.querySelector(".products");
 
-    container.innerHTML = "";
+        container.innerHTML = "";
 
-    productList.forEach(product => {
-        const card = document.createElement("div");
-        card.className = "product-card";
+        productList.forEach(product => {
+            const card = document.createElement("div");
+            card.className = "product-card";
 
-        card.innerHTML = `
-            <img src="${product.imageUrl || 'https://via.placeholder.com/120'}" alt="${product.name}">
-            
-            <div class="product-info">
-                <h4>${product.name}</h4>
-                <p class="product-type">${product.type}</p>
-                <p class="product-price">$${product.price}.00 - ${product.currency}</p>
-            </div>
+            card.innerHTML = `
+                <img src="${product.imageUrl || 'https://via.placeholder.com/120'}" alt="${product.name}">
+                
+                <div class="product-info">
+                    <h4>${product.name}</h4>
+                    <p class="product-type">${product.type}</p>
+                    <p class="product-price">$${product.price}.00 - ${product.currency}</p>
+                </div>
 
-            <div class="btn-group">
-                <button onclick="openModal(${product.id}, \`${product.name}\`, \`${product.type}\`, \`${product.price} ${product.currency}\`, \`${product.imageUrl}\`)">
-                    Product Details
-                </button>
+                <div class="btn-group">
+                    <button onclick="openModal(${product.id}, \`${product.name}\`, \`${product.type}\`, \`${product.price} ${product.currency}\`, \`${product.imageUrl}\`)">
+                        Product Details
+                    </button>
 
-                <button onclick="addToCart()">Add to Cart</button>
-            </div>
+                    <button onclick="addToCart()">Add to Cart</button>
+                </div>
+            `;
+
+            container.appendChild(card);
+        });
+    }
+
+    loadProducts();
+
+    function addToCart() {
+        if (!isLoggedIn) {
+            document.getElementById("authModal").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        } else {
+            alert("Item added to cart!");
+        }
+    }
+
+    function closeAuthModal() {
+        document.getElementById("authModal").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    function openModal(id, name, type, price, imgSrc) {
+        document.getElementById("prodId").innerText = id;
+        document.getElementById("prodName").innerText = name;
+        document.getElementById("prodType").innerText = type;
+        document.getElementById("prodPrice").innerText = price;
+        document.getElementById("prodImg").src = imgSrc || "https://via.placeholder.com/140";
+        document.getElementById("productModal").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("productModal").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    // SEARCH PRODUCTS
+    window.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            searchProducts();
+        }
+    });
+        
+        
+    function searchProducts() {
+        const query = document.getElementById("searchInput").value.toLowerCase();
+
+        const filtered = products.filter(p =>
+            p.name.toLowerCase().includes(query) ||
+            p.type.toLowerCase().includes(query)
+        );
+
+        displayProducts(filtered);
+    }
+
+    //SORT PRODUCTS
+    //TOGGLE DROPDOWN
+    function toggleSortMenu() {
+        const menu = document.getElementById("sortMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    //FILTER BY TYPE
+    function filterByType(type) {
+        const filtered = products.filter(p =>
+            p.type.toLowerCase() === type.toLowerCase()
+        );
+
+        displayProducts(filtered);
+
+        document.getElementById("sortMenu").style.display = "none";
+    }
+
+    //SORT BY PRICE
+    function sortProducts(type) {
+        let sorted = [...products];
+
+        if (type === "priceLow") {
+            sorted.sort((a, b) => a.price - b.price);
+        }
+
+        if (type === "priceHigh") {
+            sorted.sort((a, b) => b.price - a.price);
+        }
+
+        displayProducts(sorted);
+
+        document.getElementById("sortMenu").style.display = "none";
+    }
+
+    //CLOSE MENU 
+    window.addEventListener("click", function(e) {
+        if (!e.target.closest(".sort-dropdown")) {
+            document.getElementById("sortMenu").style.display = "none";
+        }
+    });
+
+    //REVIEW
+    function submitReview() {
+        const starsValue = document.getElementById("reviewRating").value;
+        const text = document.getElementById("reviewText").value.trim();
+        const name = document.getElementById("reviewerName").value || "Anonymous";
+
+        if (text === "") {
+            alert("Please write a review before submitting.");
+            return;
+        }
+
+        let stars = "⭐".repeat(starsValue);
+
+        const reviewCard = document.createElement("div");
+        reviewCard.className = "review-card";
+
+        reviewCard.innerHTML = `
+            <div class="stars">${stars}</div>
+            <p class="review-text">"${text}"</p>
+            <span class="reviewer">- ${name}</span>
         `;
 
-        container.appendChild(card);
-    });
-}
+        document.querySelector(".reviews").insertBefore(
+            reviewCard,
+            document.querySelector(".leave-review-btn")
+        );
 
-loadProducts();
+        closeReviewModal();
 
-function addToCart() {
-    if (!isLoggedIn) {
-        document.getElementById("authModal").style.display = "block";
+        document.getElementById("reviewText").value = "";
+        document.getElementById("reviewerName").value = "";
+        document.getElementById("reviewRating").value = "5";
+    }
+
+    function openReviewModal() {
+        document.getElementById("reviewModal").style.display = "block";
         document.getElementById("overlay").style.display = "block";
-    } else {
-        alert("Item added to cart!");
-    }
-}
-
-function closeAuthModal() {
-    document.getElementById("authModal").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-}
-
-function openModal(id, name, type, price, imgSrc) {
-    document.getElementById("prodId").innerText = id;
-    document.getElementById("prodName").innerText = name;
-    document.getElementById("prodType").innerText = type;
-    document.getElementById("prodPrice").innerText = price;
-    document.getElementById("prodImg").src = imgSrc || "https://via.placeholder.com/140";
-    document.getElementById("productModal").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
-}
-
-function closeModal() {
-    document.getElementById("productModal").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-}
-
-// SEARCH PRODUCTS
-window.addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        searchProducts();
-    }
-});
-    
-    
-function searchProducts() {
-    const query = document.getElementById("searchInput").value.toLowerCase();
-
-    const filtered = products.filter(p =>
-        p.name.toLowerCase().includes(query) ||
-        p.type.toLowerCase().includes(query)
-    );
-
-    displayProducts(filtered);
-}
-
-//REVIEW
-function submitReview() {
-    const starsValue = document.getElementById("reviewRating").value;
-    const text = document.getElementById("reviewText").value.trim();
-    const name = document.getElementById("reviewerName").value || "Anonymous";
-
-    if (text === "") {
-        alert("Please write a review before submitting.");
-        return;
     }
 
-    let stars = "⭐".repeat(starsValue);
-
-    const reviewCard = document.createElement("div");
-    reviewCard.className = "review-card";
-
-    reviewCard.innerHTML = `
-        <div class="stars">${stars}</div>
-        <p class="review-text">"${text}"</p>
-        <span class="reviewer">- ${name}</span>
-    `;
-
-    document.querySelector(".reviews").insertBefore(
-        reviewCard,
-        document.querySelector(".leave-review-btn")
-    );
-
-    closeReviewModal();
-
-    document.getElementById("reviewText").value = "";
-    document.getElementById("reviewerName").value = "";
-    document.getElementById("reviewRating").value = "5";
-}
-
-function openReviewModal() {
-    document.getElementById("reviewModal").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
-}
-
-function closeReviewModal() {
-    document.getElementById("reviewModal").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-}
+    function closeReviewModal() {
+        document.getElementById("reviewModal").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+    }
 
 
 </script>
