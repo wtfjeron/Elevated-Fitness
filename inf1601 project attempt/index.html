@@ -105,6 +105,47 @@
         padding: 10px;
     }
 
+    /* SORT CSS */
+    .sort-dropdown {
+    position: relative;
+    }
+
+    .sort-menu {
+        display: none;
+        position: absolute;
+        top: 35px;
+        left: 0;
+        background: white;
+        border: 1px solid #ccc;
+        width: 170px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        z-index: 100;
+    }
+
+    .sort-menu div {
+        padding: 8px 10px;
+        cursor: pointer;
+        font-size: 13px;
+    }
+
+    .sort-menu div:hover {
+        background: #f0f0f0;
+    }
+
+    .menu-title {
+        font-size: 12px;
+        font-weight: bold;
+        padding: 6px 10px;
+        background: #f5f5f5;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sort-menu hr {
+        margin: 5px 0;
+        border: none;
+        border-top: 1px solid #eee;
+    }
+
     /* ── REVIEWS ── */
     .reviews {
         background: white;
@@ -223,8 +264,90 @@
     cursor: pointer;
 }
 
-    /* ── PRODUCTS ── */
-    .products {
+/* ── PRODUCTS ── */
+.products {
+    background: white;
+    padding: 15px;
+    border: 2px solid black;
+    height: 500px;
+    overflow-y: auto;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+/* PRODUCT CARD */
+.product-card {
+    border: 1px solid #ddd;
+    padding: 12px;
+    background: #fff;
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition: 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
+
+/* INFO */
+.product-info h4 {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.product-type {
+    font-size: 12px;
+    color: #777;
+}
+
+.product-price {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* BUTTONS */
+.btn-group {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.btn-group button {
+    padding: 6px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-group button:first-child {
+    background: #eee;
+}
+
+.btn-group button:last-child {
+    background: black;
+    color: white;
+}
+
+.btn-group button:hover {
+    opacity: 0.85;
+}
+    /* .products {
         background: white;
         padding: 10px;
         border: 2px solid black;
@@ -279,7 +402,7 @@
         margin: 0;
         padding: 6px 10px;
         border-radius: 0;
-    }
+    } */
 
     /* ── CART ── */
     .cart {
@@ -593,7 +716,27 @@
 <div class="top-controls">
     <input type="text" id="searchInput" placeholder="Search products here...">
     <button onclick="searchProducts()">Search</button>
-    <button>Sort By ▼</button>
+    
+    <div class="sort-dropdown">
+    <button onclick="toggleSortMenu()">Sort By ▼</button>
+    
+    <div id="sortMenu" class="sort-menu">
+        <div class="menu-title">Filter by Type</div>
+        <div onclick="filterByType('machinery')">Machinery</div>
+        <div onclick="filterByType('nutrition')">Nutrition</div>
+        <div onclick="filterByType('personal items')">Personal Items</div>
+
+        <hr>
+
+        <div onclick="sortProducts('priceLow')">Price: Low → High</div>
+        <div onclick="sortProducts('priceHigh')">Price: High → Low</div>
+
+        <hr>
+
+        <div onclick="displayProducts(products)">Reset</div>
+    </div>
+
+</div>
 </div>
 
 <!-- MAIN CONTENT -->
@@ -645,7 +788,7 @@
     <!-- PRODUCTS -->
     <div class="products">
 
-        <div class="product-card">
+        <!-- <div class="product-card">
             <img src="https://via.placeholder.com/120" alt="">
             <div class="btn-group">
                 <button onclick="openModal(1001, 'Adjustable Dumbbell Set', 'Weight', '$59.99', 'https://via.placeholder.com/140')">Product Details</button>
@@ -677,7 +820,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 
     <!-- CART -->
     <div class="cart">
@@ -745,131 +888,190 @@
 </div>
 
 <script>
-// Toggle this to true to simulate a logged-in user
-var isLoggedIn = false;
+    // Toggle this to true to simulate a logged-in user
+    var isLoggedIn = false;
 
-function addToCart() {
-    if (!isLoggedIn) {
-        document.getElementById("authModal").style.display = "block";
-        document.getElementById("overlay").style.display = "block";
-    } else {
-        alert("Item added to cart!");
+    let products = [];
+
+    //LOAD PRODUCTS
+    async function loadProducts() {
+        try {
+            const response = await fetch("equipment_ttd.json");
+            products = await response.json();
+
+            displayProducts(products);
+        } catch (error) {
+            console.error("Error loading products:", error);
+        }
     }
-}
 
-function closeAuthModal() {
-    document.getElementById("authModal").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-}
+    //DISPLAY PRODUCTS
+    function displayProducts(productList) {
+        const container = document.querySelector(".products");
 
-function openModal(id, name, type, price, imgSrc) {
-    document.getElementById("prodId").innerText = id;
-    document.getElementById("prodName").innerText = name;
-    document.getElementById("prodType").innerText = type;
-    document.getElementById("prodPrice").innerText = price;
-    document.getElementById("prodImg").src = imgSrc || "https://via.placeholder.com/140";
-    document.getElementById("productModal").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
-}
+        container.innerHTML = "";
 
-function closeModal() {
-    document.getElementById("productModal").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-}
+        productList.forEach(product => {
+            const card = document.createElement("div");
+            card.className = "product-card";
 
-// SEARCH FUNCTION
-function searchProducts() {
-    const query = document.querySelector(".top-controls input").value.toLowerCase();
+            card.innerHTML = `
+                <img src="${product.imageUrl || 'https://via.placeholder.com/120'}" alt="${product.name}">
+                
+                <div class="product-info">
+                    <h4>${product.name}</h4>
+                    <p class="product-type">${product.type}</p>
+                    <p class="product-price">$${product.price}.00 - ${product.currency}</p>
+                </div>
 
-    const cards = document.querySelectorAll(".product-card");
+                <div class="btn-group">
+                    <button onclick="openModal(${product.id}, \`${product.name}\`, \`${product.type}\`, \`${product.price} ${product.currency}\`, \`${product.imageUrl}\`)">
+                        Product Details
+                    </button>
 
-    cards.forEach(card => {
-        const text = card.innerText.toLowerCase();
+                    <button onclick="addToCart()">Add to Cart</button>
+                </div>
+            `;
 
-        if (text.includes(query)) {
-            card.style.display = "flex";
+            container.appendChild(card);
+        });
+    }
+
+    loadProducts();
+
+    function addToCart() {
+        if (!isLoggedIn) {
+            document.getElementById("authModal").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
         } else {
-            card.style.display = "none";
+            alert("Item added to cart!");
+        }
+    }
+
+    function closeAuthModal() {
+        document.getElementById("authModal").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    function openModal(id, name, type, price, imgSrc) {
+        document.getElementById("prodId").innerText = id;
+        document.getElementById("prodName").innerText = name;
+        document.getElementById("prodType").innerText = type;
+        document.getElementById("prodPrice").innerText = price;
+        document.getElementById("prodImg").src = imgSrc || "https://via.placeholder.com/140";
+        document.getElementById("productModal").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("productModal").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    // SEARCH PRODUCTS
+    window.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            searchProducts();
         }
     });
-}
+        
+        
+    function searchProducts() {
+        const query = document.getElementById("searchInput").value.toLowerCase();
 
-//REVIEW
-function submitReview() {
-    const starsValue = document.getElementById("reviewRating").value;
-    const text = document.getElementById("reviewText").value.trim();
-    const name = document.getElementById("reviewerName").value || "Anonymous";
+        const filtered = products.filter(p =>
+            p.name.toLowerCase().includes(query) ||
+            p.type.toLowerCase().includes(query)
+        );
 
-    if (text === "") {
-        alert("Please write a review before submitting.");
-        return;
+        displayProducts(filtered);
     }
 
-    let stars = "⭐".repeat(starsValue);
+    //SORT PRODUCTS
+    //TOGGLE DROPDOWN
+    function toggleSortMenu() {
+        const menu = document.getElementById("sortMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
 
-    const reviewCard = document.createElement("div");
-    reviewCard.className = "review-card";
+    //FILTER BY TYPE
+    function filterByType(type) {
+        const filtered = products.filter(p =>
+            p.type.toLowerCase() === type.toLowerCase()
+        );
 
-    reviewCard.innerHTML = `
-        <div class="stars">${stars}</div>
-        <p class="review-text">"${text}"</p>
-        <span class="reviewer">- ${name}</span>
-    `;
+        displayProducts(filtered);
 
-    document.querySelector(".reviews").insertBefore(
-        reviewCard,
-        document.querySelector(".leave-review-btn")
-    );
+        document.getElementById("sortMenu").style.display = "none";
+    }
 
-    closeReviewModal();
+    //SORT BY PRICE
+    function sortProducts(type) {
+        let sorted = [...products];
 
-    document.getElementById("reviewText").value = "";
-    document.getElementById("reviewerName").value = "";
-    document.getElementById("reviewRating").value = "5";
-}
+        if (type === "priceLow") {
+            sorted.sort((a, b) => a.price - b.price);
+        }
 
-function openReviewModal() {
-    document.getElementById("reviewModal").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
-}
+        if (type === "priceHigh") {
+            sorted.sort((a, b) => b.price - a.price);
+        }
 
-function closeReviewModal() {
-    document.getElementById("reviewModal").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-}
+        displayProducts(sorted);
 
+        document.getElementById("sortMenu").style.display = "none";
+    }
 
+    //CLOSE MENU 
+    window.addEventListener("click", function(e) {
+        if (!e.target.closest(".sort-dropdown")) {
+            document.getElementById("sortMenu").style.display = "none";
+        }
+    });
 
-// var products = [];
+    //REVIEW
+    function submitReview() {
+        const starsValue = document.getElementById("reviewRating").value;
+        const text = document.getElementById("reviewText").value.trim();
+        const name = document.getElementById("reviewerName").value || "Anonymous";
 
-// async function loadProducts() {
-//     const response = await fetch("equipment_ttd.json");
-//     products = await response.json();
-// }
+        if (text === "") {
+            alert("Please write a review before submitting.");
+            return;
+        }
 
-// loadProducts();
+        let stars = "⭐".repeat(starsValue);
 
-// function openModal(id) {
+        const reviewCard = document.createElement("div");
+        reviewCard.className = "review-card";
 
-//     const product = products.find(p => p.id == id);
+        reviewCard.innerHTML = `
+            <div class="stars">${stars}</div>
+            <p class="review-text">"${text}"</p>
+            <span class="reviewer">- ${name}</span>
+        `;
 
-//     if (!product) return;
+        document.querySelector(".reviews").insertBefore(
+            reviewCard,
+            document.querySelector(".leave-review-btn")
+        );
 
-//     document.querySelector("#prodId").innerText = product.id;
-//     document.querySelector("#prodName").innerText = product.name;
-//     document.querySelector("#prodType").innerText = product.type;
-//     document.querySelector("#prodPrice").innerText = product.price + " " + product.currency;
-//     document.querySelector("#prodImg").src = product.imageUrl;
+        closeReviewModal();
 
-//     document.querySelector("#productModal").style.display = "block";
-//     document.querySelector("#overlay").style.display = "block";
-// }
+        document.getElementById("reviewText").value = "";
+        document.getElementById("reviewerName").value = "";
+        document.getElementById("reviewRating").value = "5";
+    }
 
-// function closeModal() {
-//     document.querySelector("#productModal").style.display = "none";
-//     document.querySelector("#overlay").style.display = "none";
-// }
+    function openReviewModal() {
+        document.getElementById("reviewModal").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+    }
 
+    function closeReviewModal() {
+        document.getElementById("reviewModal").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+    }
 
 
 </script>
