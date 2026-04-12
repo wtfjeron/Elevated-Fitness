@@ -617,7 +617,7 @@
             <div class="cart-row"><span>Subtotal</span><span>$0.00</span></div>
             <div class="cart-row total"><span>Total</span><span>$0.00</span></div>
         </div>
-        <button class="checkout-btn" onclick="window.location.href='checkoutpage.html'">Checkout →</button>
+        <button class="checkout-btn" onclick="handleCheckout()">Checkout →</button>
     </div>
 </div>
 
@@ -661,6 +661,16 @@
             console.error("Error loading products:", error);
         }
     }
+
+    function handleCheckout() {
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    // proceed to checkout if not empty
+    window.location.href = 'checkoutpage.html';
+}
 
     function displayProducts(productList) {
         const container = document.getElementById("productsContainer");
