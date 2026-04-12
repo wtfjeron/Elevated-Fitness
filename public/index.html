@@ -1098,8 +1098,13 @@ checkAuthUI();
     }
 
     function openReviewModal() {
+        if (isLoggedIn=== false) {
+            document.getElementById("authModal").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        } else {
         document.getElementById("reviewModal").style.display = "block";
         document.getElementById("overlay").style.display = "block";
+        }
     }
 
     function closeReviewModal() {
