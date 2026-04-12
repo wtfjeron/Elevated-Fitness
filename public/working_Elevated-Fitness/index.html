@@ -333,6 +333,17 @@
         padding-top: 8px;
         margin-top: 4px;
     }
+    .cart-item button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 3px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    }
+    .cart-item button:hover {
+    background: rgb(180, 12, 12);
+    }
     .checkout-btn {
         display: block;
         width: 100%;
@@ -724,15 +735,34 @@
 
     let total = 0;
 
-    cart.forEach(item => {
-        total += Number(item.price);
+    cart.forEach((item, index) => {
+    total += Number(item.price);
 
-        const div = document.createElement("div");
-        div.className = "cart-item";
-        div.textContent = `${item.name} - $${Number(item.price).toFixed(2)}`;
+    const div = document.createElement("div");
+    div.className = "cart-item";
 
-        cartBox.insertBefore(div, summary);
+    const text = document.createElement("span");
+    text.textContent = `${item.name} - $${Number(item.price).toFixed(2)}`;
+
+    const btn = document.createElement("button");
+    btn.textContent = "Remove Item";
+    btn.style.marginLeft = "10px";
+    btn.style.fontSize = "11px";
+
+    btn.addEventListener("click", () => {
+        removeFromCart(index);
     });
+
+    div.appendChild(text);
+    div.appendChild(btn);
+
+    cartBox.insertBefore(div, summary);
+});
+
+    function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+}
 
     const rows = summary.querySelectorAll(".cart-row");
 
