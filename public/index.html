@@ -1,3 +1,6 @@
+LATEST WORKING CODE   TYRESE :
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -888,8 +891,39 @@
 </div>
 
 <script>
-    import { signIn, logout, auth, setAuthListeners } from './auth.js';
-    var isLoggedIn = false;
+    // Toggle this to true to simulate a logged-in user
+// Get login state
+var isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+// Toggle UI
+function checkAuthUI() {
+    const notAuthed = document.getElementById("notAuthedArea");
+    const authed = document.getElementById("authedArea");
+
+    if (isLoggedIn) {
+        notAuthed.style.display = "none";
+        authed.style.display = "flex";
+
+        document.querySelector(".user-details").innerHTML = `
+            ${localStorage.getItem("username")}<br>
+            <small>Member</small><br>
+            <button onclick="logout()">Logout</button>
+        `;
+    } else {
+        notAuthed.style.display = "flex";
+        authed.style.display = "none";
+    }
+}
+
+// Logout
+function logout() {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
+    location.reload();
+}
+
+// Run on load
+checkAuthUI();
 
     let products = [];
 
@@ -1077,4 +1111,5 @@
 </script>
 
 </body>
-</html> // ignore this 
+</html>
+

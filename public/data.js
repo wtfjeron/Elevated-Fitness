@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { 
   getAuth, 
   signOut, 
@@ -9,25 +9,27 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
 import firebaseConfig from "./firebaseConfig.js";
 
+// ✅ Prevent double initialization
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 
-const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-const auth = getAuth();
-
+// ✅ FIXED: pass user to onLogin
 function setAuthListeners(onLogin, onLogout){
   onAuthStateChanged(auth, user => {
     if (user) {
-      onLogin();
+      onLogin(user);   // ✅ important fix
     } else {
       onLogout();
     }
   });
 }
 
-async function signIn(){
+// (renamed to match your HTML import if needed)
+async function logIn(){
   try{
     await setPersistence(auth, browserLocalPersistence);
-    const user = await signInAnonymously(auth);
+    await signInAnonymously(auth);
   }catch(e){
     console.error(e);
   }
@@ -41,4 +43,4 @@ async function logout() {
   }
 }
 
-export {auth, setAuthListeners, signIn, logout}; // ignore this
+export { auth, setAuthListeners, logIn, logout };
