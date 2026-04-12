@@ -1,13 +1,9 @@
-LATEST WORKING CODE   TYRESE :
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elevated-Fitness</title>
-
 
 <style>
     body {
@@ -17,23 +13,34 @@ LATEST WORKING CODE   TYRESE :
     }
 
     .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px;
-        background: #ddd;
-        border-bottom: 2px solid black;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 30px;
 
-    .header h1 { margin: 0; }
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-bottom: none;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+    .header h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
 
     .header-right {
-        display: flex;
-        gap: 80px;
-        align-items: center;
-    }
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
 
-    /* NOT AUTHED header state */
     .not-authed-area {
         display: flex;
         flex-direction: column;
@@ -53,36 +60,37 @@ LATEST WORKING CODE   TYRESE :
     }
 
     .btn-login {
-        padding: 6px 14px;
-        background: white;
-        border: 1.5px solid #555;
-        border-radius: 4px;
-        font-size: 13px;
-        cursor: pointer;
-        text-decoration: none;
-        color: #111;
-        display: inline-block;
-        line-height: 1.4;
-    }
+    padding: 6px 14px;
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.2s ease;
+}
 
-    .btn-login:hover { background: #f0f0f0; }
+    .btn-login:hover {
+    background: #f5f5f5;
+}
 
     .btn-signup {
-        padding: 6px 14px;
-        background: #111;
-        color: white;
-        border: 1.5px solid #111;
-        border-radius: 4px;
-        font-size: 13px;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        line-height: 1.4;
-    }
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #111, #333);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
 
-    .btn-signup:hover { background: #333; }
+    .btn-signup:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
 
     .top-controls {
         padding: 15px;
@@ -108,9 +116,8 @@ LATEST WORKING CODE   TYRESE :
         padding: 10px;
     }
 
-    /* SORT CSS */
     .sort-dropdown {
-    position: relative;
+        position: relative;
     }
 
     .sort-menu {
@@ -149,7 +156,6 @@ LATEST WORKING CODE   TYRESE :
         border-top: 1px solid #eee;
     }
 
-    /* ── REVIEWS ── */
     .reviews {
         background: white;
         padding: 16px;
@@ -210,208 +216,143 @@ LATEST WORKING CODE   TYRESE :
 
     .leave-review-btn:hover { background: #333; }
 
-    /* REVIEW MODAL */
-.review-modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border: 2px solid black;
-    width: 320px;
-    z-index: 1002;
-    padding: 16px;
-    border-radius: 6px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-.review-modal h3 {
-    margin-top: 0;
-    font-size: 16px;
-    border-bottom: 2px solid black;
-    padding-bottom: 8px;
-}
-
-.review-modal label {
-    display: block;
-    margin-top: 10px;
-    font-size: 12px;
-}
-
-.review-modal textarea {
-    width: 100%;
-    height: 80px;
-    margin-top: 5px;
-    padding: 8px;
-    font-size: 12px;
-    resize: none;
-}
-
-.review-modal input,
-.review-modal select {
-    width: 100%;
-    padding: 6px;
-    margin-top: 5px;
-    font-size: 12px;
-}
-
-.review-modal-btns {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 12px;
-}
-
-.review-modal-btns button {
-    padding: 6px 10px;
-    cursor: pointer;
-}
-
-/* ── PRODUCTS ── */
-.products {
-    background: white;
-    padding: 15px;
-    border: 2px solid black;
-    height: 500px;
-    overflow-y: auto;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-/* PRODUCT CARD */
-.product-card {
-    border: 1px solid #ddd;
-    padding: 12px;
-    background: #fff;
-    border-radius: 8px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    transition: 0.2s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.product-card img {
-    width: 100%;
-    height: 120px;
-    object-fit: contain;
-    margin-bottom: 8px;
-}
-
-/* INFO */
-.product-info h4 {
-    margin: 5px 0;
-    font-size: 14px;
-}
-
-.product-type {
-    font-size: 12px;
-    color: #777;
-}
-
-.product-price {
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-/* BUTTONS */
-.btn-group {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.btn-group button {
-    padding: 6px;
-    font-size: 12px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.btn-group button:first-child {
-    background: #eee;
-}
-
-.btn-group button:last-child {
-    background: black;
-    color: white;
-}
-
-.btn-group button:hover {
-    opacity: 0.85;
-}
-    /* .products {
+    .review-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         background: white;
-        padding: 10px;
+        border: 2px solid black;
+        width: 320px;
+        z-index: 1002;
+        padding: 16px;
+        border-radius: 6px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .review-modal h3 {
+        margin-top: 0;
+        font-size: 16px;
+        border-bottom: 2px solid black;
+        padding-bottom: 8px;
+    }
+
+    .review-modal label {
+        display: block;
+        margin-top: 10px;
+        font-size: 12px;
+    }
+
+    .review-modal textarea {
+        width: 95%;
+        height: 80px;
+        margin-top: 5px;
+        padding: 8px;
+        font-size: 12px;
+        resize: none;
+    }
+
+    .review-modal input, .review-modal select {
+        width: 100%;
+        padding: 6px;
+        margin-top: 5px;
+        font-size: 12px;
+    }
+
+    .review-modal-btns {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+    }
+
+    .review-modal-btns button {
+        padding: 6px 10px;
+        cursor: pointer;
+    }
+
+    .products {
+        background: white;
+        padding: 15px;
         border: 2px solid black;
         height: 500px;
-        overflow-y: scroll;
+        overflow-y: auto;
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 15px;
     }
 
-    .products::-webkit-scrollbar {
-        width: 8px;
+    .product-card {
+        border: 1px solid #ddd;
+        padding: 12px;
+        background: #fff;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: 0.2s ease;
     }
 
-    .products::-webkit-scrollbar-track {
-        background: #f0f0f0;
-        border-left: 1px solid #ddd;
+    .product-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .products::-webkit-scrollbar-thumb {
-        background: #888;
+    .product-card img {
+        width: 100%;
+        height: 120px;
+        object-fit: contain;
+        margin-bottom: 8px;
+    }
+
+    .product-info h4 {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .product-type {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .product-price {
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+    .btn-group {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .btn-group button {
+        padding: 6px;
+        font-size: 12px;
+        border: none;
+        cursor: pointer;
         border-radius: 4px;
     }
 
-    .products::-webkit-scrollbar-thumb:hover {
-        background: #555;
+    .btn-group button:first-child {
+        background: #eee;
     }
 
-    .product-card {
-        border: 1px solid #ccc;
-        padding: 10px;
-        text-align: center;
-        background: #fafafa;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 220px;
+    .btn-group button:last-child {
+        background: black;
+        color: white;
     }
 
-    .product-card img { width: 120px; }
-
-    .product-card .btn-group {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-top: auto;
-        gap: 0;
+    .btn-group button:hover {
+        opacity: 0.85;
     }
 
-    .product-card .btn-group button {
-        width: 100%;
-        margin: 0;
-        padding: 6px 10px;
-        border-radius: 0;
-    } */
-
-    /* ── CART ── */
     .cart {
         background: white;
         padding: 16px;
         border: 2px solid black;
+        display: none;
     }
 
     .cart h3 {
@@ -421,6 +362,19 @@ LATEST WORKING CODE   TYRESE :
         letter-spacing: 0.08em;
         border-bottom: 2px solid black;
         padding-bottom: 8px;
+    }
+
+    .cart-items {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+        font-size: 13px;
     }
 
     .cart-empty {
@@ -482,25 +436,24 @@ LATEST WORKING CODE   TYRESE :
     .checkout-btn:hover { background: #333; }
 
     .user-info {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
     .user-avatar {
-        width: 42px;
-        height: 42px;
-        flex-shrink: 0;
-    }
+    width: 38px;
+    height: 38px;
+}
 
-    .user-details {
-        line-height: 1.4;
-    }
+    .user-details span {
+    font-weight: 500;
+}
 
     .user-details small {
         color: #666;
     }
-    /* MODAL OVERLAY */
+
     .overlay {
         display: none;
         position: fixed;
@@ -512,7 +465,6 @@ LATEST WORKING CODE   TYRESE :
         z-index: 999;
     }
 
-    /* PRODUCT DETAILS MODAL */
     .modal {
         display: none;
         position: fixed;
@@ -527,7 +479,6 @@ LATEST WORKING CODE   TYRESE :
         overflow: hidden;
     }
 
-    /* Header bar with back arrow */
     .modal-header {
         display: flex;
         align-items: center;
@@ -554,7 +505,6 @@ LATEST WORKING CODE   TYRESE :
         letter-spacing: 0.03em;
     }
 
-    /* Modal body */
     .modal-body {
         padding: 20px 20px 16px;
     }
@@ -585,7 +535,6 @@ LATEST WORKING CODE   TYRESE :
         padding: 8px;
     }
 
-    /* Close button */
     .modal-close-btn {
         display: block;
         width: 60%;
@@ -606,7 +555,6 @@ LATEST WORKING CODE   TYRESE :
         background: #d5d5d5;
     }
 
-    /* ── AUTH PROMPT MODAL ── */
     .auth-modal {
         display: none;
         position: fixed;
@@ -684,13 +632,9 @@ LATEST WORKING CODE   TYRESE :
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <h1>Elevated Fitness</h1>
     <div class="header-right">
-        ❤️ Wishlist
-
-        <!-- NOT AUTHED (shown by default) -->
         <div class="not-authed-area" id="notAuthedArea">
             <span class="not-authed-label">Not logged in</span>
             <div class="not-authed-btns">
@@ -698,8 +642,6 @@ LATEST WORKING CODE   TYRESE :
                 <a href="signup.html" class="btn-signup">Sign Up &rsaquo;</a>
             </div>
         </div>
-
-        <!-- AUTHED (hidden by default, shown after login) -->
         <div class="user-info" id="authedArea" style="display:none;">
             <svg class="user-avatar" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="21" cy="21" r="21" fill="#555"/>
@@ -707,66 +649,41 @@ LATEST WORKING CODE   TYRESE :
                 <ellipse cx="21" cy="36" rx="12" ry="8" fill="#ccc"/>
             </svg>
             <div class="user-details">
-                Username<br>
-                <small>Account Type</small><br>
-                <button>Logout</button>
+                <span id="userName">Username</span><br>
+                <small>Member</small><br>
+                <button id="logoutBtn">Logout</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- SEARCH + SORT -->
 <div class="top-controls">
     <input type="text" id="searchInput" placeholder="Search products here...">
     <button onclick="searchProducts()">Search</button>
-    
     <div class="sort-dropdown">
-    <button onclick="toggleSortMenu()">Sort By ▼</button>
-    
-    <div id="sortMenu" class="sort-menu">
-        <div class="menu-title">Filter by Type</div>
-        <div onclick="filterByType('machinery')">Machinery</div>
-        <div onclick="filterByType('nutrition')">Nutrition</div>
-        <div onclick="filterByType('personal items')">Personal Items</div>
-
-        <hr>
-
-        <div onclick="sortProducts('priceLow')">Price: Low → High</div>
-        <div onclick="sortProducts('priceHigh')">Price: High → Low</div>
-
-        <hr>
-
-        <div onclick="displayProducts(products)">Reset</div>
+        <button onclick="toggleSortMenu()">Sort By ▼</button>
+        <div id="sortMenu" class="sort-menu">
+            <div class="menu-title">Filter by Type</div>
+            <div onclick="filterByType('machinery')">Machinery</div>
+            <div onclick="filterByType('nutrition')">Nutrition</div>
+            <div onclick="filterByType('personal items')">Personal Items</div>
+            <hr>
+            <div onclick="sortProducts('priceLow')">Price: Low → High</div>
+            <div onclick="sortProducts('priceHigh')">Price: High → Low</div>
+            <hr>
+            <div onclick="displayProducts(products)">Reset</div>
+        </div>
     </div>
-
-</div>
 </div>
 
-<!-- MAIN CONTENT -->
 <div class="container">
-
-    <!-- REVIEWS -->
-    <div class="reviews">
+    <div class="reviews" id="reviewsContainer">
         <h3>Reviews</h3>
-
-        <div class="review-card">
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p class="review-text">"Incredible quality — the dumbbells feel super solid and arrived fast!"</p>
-            <span class="reviewer">— Jordan M.</span>
-        </div>
-
-        <div class="review-card">
-            <div class="stars">⭐⭐⭐⭐☆</div>
-            <p class="review-text">"Great resistance bands, good value for money."</p>
-            <span class="reviewer">— Sam K.</span>
-        </div>
-
         <button class="leave-review-btn" onclick="openReviewModal()">✏ Leave a Review</button>
     </div>
 
     <div class="review-modal" id="reviewModal">
         <h3>Leave a Review</h3>
-
         <label>Rating:</label>
         <select id="reviewRating">
             <option value="5">⭐⭐⭐⭐⭐</option>
@@ -775,112 +692,52 @@ LATEST WORKING CODE   TYRESE :
             <option value="2">⭐⭐</option>
             <option value="1">⭐</option>
         </select>
-
         <label>Your Review:</label>
-        <textarea id="reviewText" placeholder="Write your review..."> </textarea>
-
+        <textarea id="reviewText" placeholder="Write your review..."></textarea>
         <label>Your Name:</label>
         <input type="text" id="reviewerName" placeholder="e.g. John D." />
-
         <div class="review-modal-btns">
-            <button onclick="submitReview()">Submit</button>
+            <button id="submitReviewBtn">Submit</button>
             <button onclick="closeReviewModal()">Cancel</button>
         </div>
     </div>
 
-    <!-- PRODUCTS -->
-    <div class="products">
+    <div class="products" id="productsContainer"></div>
 
-        <!-- <div class="product-card">
-            <img src="https://via.placeholder.com/120" alt="">
-            <div class="btn-group">
-                <button onclick="openModal(1001, 'Adjustable Dumbbell Set', 'Weight', '$59.99', 'https://via.placeholder.com/140')">Product Details</button>
-                <button onclick="addToCart()">Add to Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/120" alt="">
-            <div class="btn-group">
-                <button onclick="openModal(1002, 'Whey Protein Gold', 'Supplement', '$39.99', 'https://via.placeholder.com/140')">Product Details</button>
-                <button onclick="addToCart()">Add to Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/120" alt="">
-            <div class="btn-group">
-                <button onclick="openModal(1003, 'Resistance Bands Kit', 'Accessory', '$19.99', 'https://via.placeholder.com/140')">Product Details</button>
-                <button onclick="addToCart()">Add to Cart</button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/120" alt="">
-            <div class="btn-group">
-                <button onclick="openModal(1004, 'Resistance Bands Kit', 'Accessory', '$19.99', 'https://via.placeholder.com/140')">Product Details</button>
-                <button onclick="addToCart()">Add to Cart</button>
-            </div>
-        </div>
-
-    </div> -->
-
-    <!-- CART -->
-    <div class="cart">
+    <div class="cart" id="cartContainer">
         <h3>🛒 Shopping Cart</h3>
-
-        <div class="cart-empty">
-            <span class="cart-icon">🛍️</span>
-            <p>Your cart is empty</p>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <span class="cart-icon">🛍️</span>
+                <p>Your cart is empty</p>
+            </div>
         </div>
-
         <div class="cart-summary">
-            <div class="cart-row">
-                <span>Items</span>
-                <span>0</span>
-            </div>
-            <div class="cart-row">
-                <span>Subtotal</span>
-                <span>$0.00</span>
-            </div>
-            <div class="cart-row total">
-                <span>Total</span>
-                <span>$0.00</span>
-            </div>
+            <div class="cart-row"><span>Items</span><span id="cartCount">0</span></div>
+            <div class="cart-row"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+            <div class="cart-row total"><span>Total</span><span id="cartTotal">$0.00</span></div>
         </div>
-
-        <button  class="checkout-btn" onclick="window.location.href='checkoutpage.html'">Checkout →</button>
+        <button class="checkout-btn" onclick="handleCheckout()">Checkout →</button>
     </div>
-
 </div>
 
-<!-- MODAL OVERLAY -->
 <div class="overlay" id="overlay" onclick="closeModal()"></div>
 
-<!-- PRODUCT DETAILS MODAL -->
 <div class="modal" id="productModal">
-
     <div class="modal-header">
         <button class="modal-back-btn" onclick="closeModal()">&#8592;</button>
         <h3>Product Details</h3>
     </div>
-
     <div class="modal-body">
         <div class="modal-field"><strong>Product ID:</strong> <span id="prodId"></span></div>
         <div class="modal-field"><strong>Product Name:</strong> <span id="prodName"></span></div>
         <div class="modal-field"><strong>Product Type:</strong> <span id="prodType"></span></div>
         <div class="modal-field"><strong>Product Price:</strong> <span id="prodPrice"></span></div>
-
-        <div class="modal-img-wrap">
-            <img id="prodImg" src="https://via.placeholder.com/140" alt="Product Image">
-        </div>
+        <div class="modal-img-wrap"><img id="prodImg" src="https://via.placeholder.com/140" alt="Product Image"></div>
     </div>
-
     <button class="modal-close-btn" onclick="closeModal()">Close</button>
-
 </div>
 
-<!-- AUTH PROMPT MODAL -->
 <div class="auth-modal" id="authModal">
     <p>You are not logged in,<br>please sign up to add items to cart.</p>
     <div class="auth-modal-btns">
@@ -891,100 +748,117 @@ LATEST WORKING CODE   TYRESE :
 </div>
 
 <script>
-    // Toggle this to true to simulate a logged-in user
-// Get login state
-var isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-// Toggle UI
-function checkAuthUI() {
-    const notAuthed = document.getElementById("notAuthedArea");
-    const authed = document.getElementById("authedArea");
-
-    if (isLoggedIn) {
-        notAuthed.style.display = "none";
-        authed.style.display = "flex";
-
-        document.querySelector(".user-details").innerHTML = `
-            ${localStorage.getItem("username")}<br>
-            <small>Member</small><br>
-            <button onclick="logout()">Logout</button>
-        `;
-    } else {
-        notAuthed.style.display = "flex";
-        authed.style.display = "none";
-    }
-}
-
-// Logout
-function logout() {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("username");
-    location.reload();
-}
-
-// Run on load
-checkAuthUI();
-
     let products = [];
+    let cart = [];
+    let isLoggedIn = false;
 
-    //LOAD PRODUCTS
-    async function loadProducts() {
-        try {
-            const response = await fetch("equipment_ttd.json");
-            products = await response.json();
-
-            displayProducts(products);
-        } catch (error) {
-            console.error("Error loading products:", error);
-        }
+    function loadProducts() {
+        fetch("equipment_ttd.json")
+            .then(response => response.json())
+            .then(data => {
+                products = data;
+                displayProducts(products);
+            })
+            .catch(error => console.error("Error loading products:", error));
     }
 
-    //DISPLAY PRODUCTS
+    function handleCheckout() {
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+    window.location.href = 'checkoutpage.html';
+}
+
     function displayProducts(productList) {
-        const container = document.querySelector(".products");
-
+        const container = document.getElementById("productsContainer");
+        if (!container) return;
         container.innerHTML = "";
-
         productList.forEach(product => {
             const card = document.createElement("div");
             card.className = "product-card";
-
             card.innerHTML = `
                 <img src="${product.imageUrl || 'https://via.placeholder.com/120'}" alt="${product.name}">
-                
                 <div class="product-info">
                     <h4>${product.name}</h4>
                     <p class="product-type">${product.type}</p>
                     <p class="product-price">$${product.price}.00 - ${product.currency}</p>
                 </div>
-
                 <div class="btn-group">
-                    <button onclick="openModal(${product.id}, \`${product.name}\`, \`${product.type}\`, \`${product.price} ${product.currency}\`, \`${product.imageUrl}\`)">
-                        Product Details
-                    </button>
-
-                    <button onclick="addToCart()">Add to Cart</button>
+                    <button onclick="openModal(${product.id}, '${product.name}', '${product.type}', '${product.price} ${product.currency}', '${product.imageUrl}')">Product Details</button>
+                    <button onclick="addToCart(${product.id})">Add to Cart</button>
                 </div>
             `;
-
             container.appendChild(card);
         });
     }
 
-    loadProducts();
-
-    function addToCart() {
+    function addToCart(productId) {
         if (!isLoggedIn) {
             document.getElementById("authModal").style.display = "block";
             document.getElementById("overlay").style.display = "block";
-        } else {
+            return;
+        }
+        
+        const product = products.find(p => p.id === productId);
+        if (product) {
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCartDisplay();
             alert("Item added to cart!");
         }
     }
 
-    function closeAuthModal() {
-        document.getElementById("authModal").style.display = "none";
-        document.getElementById("overlay").style.display = "none";
+
+    function removeFromCart(index) {
+    cart.splice(index, 1);
+     updateCartDisplay();
+}
+
+    function updateCartDisplay() {
+        const cartItemsDiv = document.getElementById("cartItems");
+        const cartCountSpan = document.getElementById("cartCount");
+        const cartSubtotalSpan = document.getElementById("cartSubtotal");
+        const cartTotalSpan = document.getElementById("cartTotal");
+        
+        if (cart.length === 0) {
+            cartItemsDiv.innerHTML = '<div class="cart-empty"><span class="cart-icon">🛍️</span><p>Your cart is empty</p></div>';
+            cartCountSpan.innerText = "0";
+            cartSubtotalSpan.innerText = "$0.00";
+            cartTotalSpan.innerText = "$0.00";
+            return;
+        }
+        
+        let itemsHtml = "";
+        let itemCount = 0;
+        let subtotal = 0;
+        
+        cart.forEach((item, index) => {
+    const itemTotal = item.price * item.quantity;
+    itemCount += item.quantity;
+    subtotal += itemTotal;
+
+    itemsHtml += `
+        <div class="cart-item">
+            <span>${item.name} x${item.quantity}</span>
+            <span>
+                $${itemTotal.toFixed(2)}
+                <button onclick="removeFromCart(${index})" style="margin-left:8px; background:red; color:white; border:none; padding:2px 6px; cursor:pointer;">
+                    ✖
+                </button>
+            </span>
+        </div>
+    `;
+});
+        
+        cartItemsDiv.innerHTML = itemsHtml;
+        cartCountSpan.innerText = itemCount;
+        cartSubtotalSpan.innerText = "$" + subtotal.toFixed(2);
+        cartTotalSpan.innerText = "$" + subtotal.toFixed(2);
     }
 
     function openModal(id, name, type, price, imgSrc) {
@@ -1002,108 +876,129 @@ checkAuthUI();
         document.getElementById("overlay").style.display = "none";
     }
 
-    // SEARCH PRODUCTS
-    window.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            searchProducts();
-        }
-    });
-        
-        
+    function closeAuthModal() {
+        document.getElementById("authModal").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+    }
+
     function searchProducts() {
         const query = document.getElementById("searchInput").value.toLowerCase();
-
-        const filtered = products.filter(p =>
-            p.name.toLowerCase().includes(query) ||
-            p.type.toLowerCase().includes(query)
-        );
-
+        const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.type.toLowerCase().includes(query));
         displayProducts(filtered);
     }
 
-    //SORT PRODUCTS
-    //TOGGLE DROPDOWN
     function toggleSortMenu() {
         const menu = document.getElementById("sortMenu");
         menu.style.display = menu.style.display === "block" ? "none" : "block";
     }
 
-    //FILTER BY TYPE
     function filterByType(type) {
-        const filtered = products.filter(p =>
-            p.type.toLowerCase() === type.toLowerCase()
-        );
-
+        const filtered = products.filter(p => p.type.toLowerCase() === type.toLowerCase());
         displayProducts(filtered);
-
         document.getElementById("sortMenu").style.display = "none";
     }
 
-    //SORT BY PRICE
     function sortProducts(type) {
         let sorted = [...products];
-
-        if (type === "priceLow") {
-            sorted.sort((a, b) => a.price - b.price);
-        }
-
-        if (type === "priceHigh") {
-            sorted.sort((a, b) => b.price - a.price);
-        }
-
+        if (type === "priceLow") sorted.sort((a, b) => a.price - b.price);
+        if (type === "priceHigh") sorted.sort((a, b) => b.price - a.price);
         displayProducts(sorted);
-
         document.getElementById("sortMenu").style.display = "none";
     }
 
-    //CLOSE MENU 
     window.addEventListener("click", function(e) {
         if (!e.target.closest(".sort-dropdown")) {
             document.getElementById("sortMenu").style.display = "none";
         }
     });
 
-    //REVIEW
-    function submitReview() {
+    window.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") searchProducts();
+    });
+
+    // REVIEW FUNCTIONS
+    async function loadAllReviews() {
+        console.log("Loading reviews...");
+        try {
+            const { getAllReviews } = await import('./auth.js');
+            const reviews = await getAllReviews();
+            console.log("Reviews loaded:", reviews);
+            
+            const reviewsContainer = document.getElementById("reviewsContainer");
+            if (!reviewsContainer) {
+                console.error("Reviews container not found");
+                return;
+            }
+            
+            const leaveBtn = document.querySelector(".leave-review-btn");
+            if (!leaveBtn) {
+                console.error("Leave review button not found");
+                return;
+            }
+            
+            const existingCards = reviewsContainer.querySelectorAll(".review-card");
+            existingCards.forEach(card => card.remove());
+            
+            if (reviews.length === 0) {
+                console.log("No reviews found");
+            } else {
+                reviews.forEach(review => {
+                    const stars = "⭐".repeat(review.rating);
+                    const reviewCard = document.createElement("div");
+                    reviewCard.className = "review-card";
+                    reviewCard.innerHTML = `
+                        <div class="stars">${stars}</div>
+                        <p class="review-text">"${review.text}"</p>
+                        <span class="reviewer">— ${review.reviewer}</span>
+                        <small style="display: block; font-size: 10px; color: #999; margin-top: 5px;">${new Date(review.createdAt).toLocaleDateString()}</small>
+                    `;
+                    reviewsContainer.insertBefore(reviewCard, leaveBtn);
+                });
+                console.log("Added " + reviews.length + " reviews to page");
+            }
+        } catch (error) {
+            console.error("Error loading reviews:", error);
+        }
+    }
+
+    async function submitReview() {
         const starsValue = document.getElementById("reviewRating").value;
         const text = document.getElementById("reviewText").value.trim();
         const name = document.getElementById("reviewerName").value || "Anonymous";
-
+        
         if (text === "") {
             alert("Please write a review before submitting.");
             return;
         }
-
-        let stars = "⭐".repeat(starsValue);
-
-        const reviewCard = document.createElement("div");
-        reviewCard.className = "review-card";
-
-        reviewCard.innerHTML = `
-            <div class="stars">${stars}</div>
-            <p class="review-text">"${text}"</p>
-            <span class="reviewer">- ${name}</span>
-        `;
-
-        document.querySelector(".reviews").insertBefore(
-            reviewCard,
-            document.querySelector(".leave-review-btn")
-        );
-
-        closeReviewModal();
-
-        document.getElementById("reviewText").value = "";
-        document.getElementById("reviewerName").value = "";
-        document.getElementById("reviewRating").value = "5";
+        
+        console.log("Submitting review:", { starsValue, text, name });
+        
+        try {
+            const { saveReview } = await import('./auth.js');
+            await saveReview("all", text, starsValue, name);
+            console.log("Review saved successfully");
+            alert("Review submitted successfully!");
+            
+            document.getElementById("reviewText").value = "";
+            document.getElementById("reviewerName").value = "";
+            document.getElementById("reviewRating").value = "5";
+            
+            closeReviewModal();
+            await loadAllReviews();
+            
+        } catch (error) {
+            console.error("Error submitting review:", error);
+            alert("Failed to submit review: " + error.message);
+        }
     }
 
     function openReviewModal() {
-        if (isLoggedIn=== false) {
+        if (!isLoggedIn) {
             document.getElementById("authModal").style.display = "block";
             document.getElementById("overlay").style.display = "block";
         } else {
-        document.getElementById("reviewModal").style.display = "block";
-        document.getElementById("overlay").style.display = "block";
+            document.getElementById("reviewModal").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
         }
     }
 
@@ -1112,9 +1007,67 @@ checkAuthUI();
         document.getElementById("overlay").style.display = "none";
     }
 
+    // Make functions global
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.searchProducts = searchProducts;
+    window.toggleSortMenu = toggleSortMenu;
+    window.filterByType = filterByType;
+    window.sortProducts = sortProducts;
+    window.openReviewModal = openReviewModal;
+    window.closeReviewModal = closeReviewModal;
+    window.closeAuthModal = closeAuthModal;
+    window.addToCart = addToCart;
+    window.displayProducts = displayProducts;
 
+    loadProducts();
+    loadAllReviews();
+
+    // Attach submit button event
+    document.getElementById("submitReviewBtn").addEventListener("click", submitReview);
+</script>
+
+<script type="importmap">
+    {
+        "imports": {
+            "firebase/app": "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js",
+            "firebase/auth": "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js"
+        }
+    }
+</script>
+
+<script type="module">
+    import { onAuthStateChange, logout } from './auth.js';
+    
+    const notAuthedArea = document.getElementById('notAuthedArea');
+    const authedArea = document.getElementById('authedArea');
+    const userNameSpan = document.getElementById('userName');
+    const cartContainer = document.getElementById('cartContainer');
+
+    onAuthStateChange((user) => {
+        if (user) {
+            notAuthedArea.style.display = 'none';
+            authedArea.style.display = 'flex';
+            isLoggedIn = true;
+            userNameSpan.textContent = 'Welcome ' + user.email;
+            if (cartContainer) cartContainer.style.display = 'block';
+        } else {
+            notAuthedArea.style.display = 'flex';
+            authedArea.style.display = 'none';
+            isLoggedIn = false;
+            userNameSpan.textContent = 'Username';
+            if (cartContainer) cartContainer.style.display = 'none';
+        }
+    });
+
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.onclick = async () => {
+            await logout();
+            window.location.href = 'login.html';
+        };
+    }
 </script>
 
 </body>
 </html>
-
