@@ -888,7 +888,7 @@
 </div>
 
 <script>
-    // Toggle this to true to simulate a logged-in user
+    import { signIn, logout, auth, setAuthListeners } from './auth.js';
     var isLoggedIn = false;
 
     let products = [];
