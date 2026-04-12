@@ -41,4 +41,4 @@ async function logout() {
   }
 }
 
-export {auth, setAuthListeners, signIn, logout};
+export {auth, setAuthListeners, signIn, logout}; // ignore this
