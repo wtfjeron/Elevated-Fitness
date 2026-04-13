@@ -1,2 +1,2 @@
-# Elevated-Fitness
-Gym product store with user accounts, wishlist, search/filter, and product reviews. Built for INFO 1601 group project.
+# Elevated-Fitness(PLEASE READ WHOEVER IS MARKING THIS)
+All files that need to be checked will be in either a directory named Elevated-Fitness-main Files or a zip file named Elevated-Fitness-main Files, the zip file will contain all files that GitHub could not process for whatever reason. Commits should be perfectly fine, when files were deleted to clean it up, I beleive some commits shouldn't be missing but if they are, everyone contributed to the project.
